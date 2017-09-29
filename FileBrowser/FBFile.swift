@@ -19,14 +19,14 @@ public protocol FBFileProto
 }
 
 /// FBFile is a class representing a file in FileBrowser
-open class FBFile: NSObject, FBFileProto {
+@objc open class FBFile: NSObject, FBFileProto {
 	// Temp implementation for FBFileProto
 	public var file : FBFile? { get { return self } }
 	public var image: UIImage? { get { return nil } }
 	//
 	
     /// Display name. String.
-    open var displayName: String
+    @objc open var displayName: String
     // is Directory. Bool.
     open let isDirectory: Bool
     /// File extension.
@@ -40,7 +40,7 @@ open class FBFile: NSObject, FBFileProto {
     open var type: FBFileType
     
     /// Describes the path in the current file system, e.g. /dir/file.txt
-    open let path: URL
+    @objc open let path: URL
     
     /**
      Initialize an FBFile object with a filePath
@@ -49,7 +49,7 @@ open class FBFile: NSObject, FBFileProto {
      
      - returns: FBFile object.
      */
-    public init(path: URL) {
+    @objc public init(path: URL) {
 		// TODO: check permissions
 		self.path = path.resolvingSymlinksInPath()
 		self.fileLocation = self.path
@@ -146,33 +146,33 @@ open class FBFile: NSObject, FBFileProto {
 	
 	static let dateFormatter = DateFormatter()
 	
-	open func getFileAddedDateDisplayString() -> String
+	@objc open func getFileAddedDateDisplayString() -> String
 	{
 		FBFile.dateFormatter.dateStyle = .short
 		FBFile.dateFormatter.timeStyle = .short
 		return FBFile.dateFormatter.string(from: getFileAddedDate())
 	}
 	
-	open func getCreationDateDisplayString() -> String
+	@objc open func getCreationDateDisplayString() -> String
 	{
 		FBFile.dateFormatter.dateStyle = .short
 		FBFile.dateFormatter.timeStyle = .short
 		return FBFile.dateFormatter.string(from: getCreationDate())
 	}
 	
-	open func getModificationDateDisplayString() -> String
+	@objc open func getModificationDateDisplayString() -> String
 	{
 		FBFile.dateFormatter.dateStyle = .short
 		FBFile.dateFormatter.timeStyle = .short
 		return FBFile.dateFormatter.string(from: getModificationDate())
 	}
 	
-	open func getFileSizeDisplayString() -> String
+	@objc open func getFileSizeDisplayString() -> String
 	{
 		return String_GetDisplayTextForFileSize(file: self, displayType: false)
 	}
 	
-	open func getFileTypeDisplayString() -> String
+	@objc open func getFileTypeDisplayString() -> String
 	{
 		return type.rawValue
 	}

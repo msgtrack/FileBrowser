@@ -402,7 +402,7 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		}
 	}
 	
-	func handleTwoFingerTap( gestureRecognizer: UIGestureRecognizer) {
+	@objc func handleTwoFingerTap( gestureRecognizer: UIGestureRecognizer) {
 		// two-finger tap zooms out
 		let newScale = scrollView.zoomScale / ImageViewController.ZOOM_STEP
 		let zoomRect = zoomRectForScale(newScale, withCenter:gestureRecognizer.location(in: gestureRecognizer.view))

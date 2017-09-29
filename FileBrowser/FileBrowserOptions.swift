@@ -9,37 +9,37 @@ import Foundation
 @objc open class FileBrowserOptions : NSObject, NSCoding
 {
 	// Text File Viewing and Editing
-	public var TextFile_textColorDay: UIColor?
-	public var TextFile_backgroundColorDay: UIColor?
-	public var TextFile_font: UIFont?
+	@objc public var TextFile_textColorDay: UIColor?
+	@objc public var TextFile_backgroundColorDay: UIColor?
+	@objc public var TextFile_font: UIFont?
 	
-	public var TextFile_textColorNight: UIColor?
-	public var TextFile_backgroundColorNight: UIColor?
+	@objc public var TextFile_textColorNight: UIColor?
+	@objc public var TextFile_backgroundColorNight: UIColor?
 	
-	public var TextFile_showStatusBar: Bool = true // show status bar when the nav bar is hidden
+	@objc public var TextFile_showStatusBar: Bool = true // show status bar when the nav bar is hidden
 	
 	// File Browser List options
-	public var List_ShowIndex: Bool = true
-	public var List_ShowImageThumbnails: Bool = true
+	@objc public var List_ShowIndex: Bool = true
+	@objc public var List_ShowImageThumbnails: Bool = true
 	public var List_SortBy : FBFileAttributes = .FileName
-	public var List_SortReversed : Bool = false
-	public var File_ShowDisclosureButton : Bool = true
-	public var Folder_ShowItemCount : Bool = false
+	@objc public var List_SortReversed : Bool = false
+	@objc public var File_ShowDisclosureButton : Bool = true
+	@objc public var Folder_ShowItemCount : Bool = false
 	
 	public var FileDetail_Left : FBFileAttributes = .FileSize
 	public var FileDetail_Right : FBFileAttributes = .DateModified
-	public var List_FileNameFontSize : Int = 17
-	public var List_FileDetailFontSize : Int = 12
-	public var List_FileRowCellHeight : Int = 44
+	@objc public var List_FileNameFontSize : Int = 17
+	@objc public var List_FileDetailFontSize : Int = 12
+	@objc public var List_FileRowCellHeight : Int = 44
 	
 	// Static
-	public static var Default_TextFile_font: UIFont { get {return UIFont(name: "Helvetica", size: 16) ?? UIFont.preferredFont(forTextStyle: .body)} }
+	@objc public static var Default_TextFile_font: UIFont { get {return UIFont(name: "Helvetica", size: 16) ?? UIFont.preferredFont(forTextStyle: .body)} }
 //	public static var Default_TextFile_font: UIFont { get {return UIFont.preferredFont(forTextStyle: .body)} }
-	public static let Default_TextFile_textColorDay: UIColor = UIColor.black
-	public static let Default_TextFile_backgroundColorDay: UIColor = UIColor.white
+	@objc public static let Default_TextFile_textColorDay: UIColor = UIColor.black
+	@objc public static let Default_TextFile_backgroundColorDay: UIColor = UIColor.white
 	
-	public static let Default_TextFile_textColorNight: UIColor = UIColor.white
-	public static let Default_TextFile_backgroundColorNight: UIColor = UIColor.black
+	@objc public static let Default_TextFile_textColorNight: UIColor = UIColor.white
+	@objc public static let Default_TextFile_backgroundColorNight: UIColor = UIColor.black
 	
 	
 	

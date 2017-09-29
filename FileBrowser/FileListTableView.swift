@@ -112,7 +112,7 @@ extension FileListViewController: UITableViewDataSource, UITableViewDelegate {
 				style.tabStops = [NSTextTab.init(textAlignment: .right, location: rightLocation, options: [:])]
 				
 				attString.beginEditing()
-				attString.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, leftDetailText.characters.count + rightDetailText.characters.count))
+				attString.addAttribute(NSAttributedStringKey.paragraphStyle, value: style, range: NSMakeRange(0, leftDetailText.characters.count + rightDetailText.characters.count))
 				attString.endEditing()
 				
 				cell.detailTextLabel?.font = cell.detailTextLabel?.font.withSize(CGFloat(fileBrowserState.options?.List_FileDetailFontSize ?? 10))

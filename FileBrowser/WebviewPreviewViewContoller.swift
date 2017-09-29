@@ -57,6 +57,12 @@ class WebviewPreviewViewContoller: UIViewController {
         }
         
         let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+		
+		if UIDevice.current.userInterfaceIdiom == .pad &&
+			activityViewController.responds(to: #selector(getter: popoverPresentationController)) {
+			activityViewController.popoverPresentationController?.barButtonItem = sender
+		}
+		
         self.present(activityViewController, animated: true, completion: nil)
 
     }

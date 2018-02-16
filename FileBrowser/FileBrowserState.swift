@@ -277,11 +277,11 @@ public class FileBrowserState : NSObject, NSCopying
 		case .FileType:
 			selector = #selector(FBFile.getFileTypeDisplayString)
 		case .DateModified:
-			selector = #selector(FBFile.getModificationDateDisplayString)
+			selector = #selector(FBFile.getModificationDateStringForSorting)
 		case .DateAdded:
-			selector = #selector(FBFile.getFileAddedDateDisplayString)
+			selector = #selector(FBFile.getFileAddedDateStringForSorting)
 		case .DateCreated:
-			selector = #selector(FBFile.getCreationDateDisplayString)
+			selector = #selector(FBFile.getCreationDateStringForSorting)
 		}
 
 		return selector

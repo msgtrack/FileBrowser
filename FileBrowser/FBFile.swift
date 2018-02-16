@@ -153,6 +153,11 @@ public protocol FBFileProto
 		return FBFile.dateFormatter.string(from: getFileAddedDate())
 	}
 	
+	@objc open func getFileAddedDateStringForSorting() -> String
+	{
+		return String_GetDateStringForSorting(date: getFileAddedDate())
+	}
+	
 	@objc open func getCreationDateDisplayString() -> String
 	{
 		FBFile.dateFormatter.dateStyle = .short
@@ -160,11 +165,21 @@ public protocol FBFileProto
 		return FBFile.dateFormatter.string(from: getCreationDate())
 	}
 	
+	@objc open func getCreationDateStringForSorting() -> String
+	{
+		return String_GetDateStringForSorting(date: getCreationDate())
+	}
+	
 	@objc open func getModificationDateDisplayString() -> String
 	{
 		FBFile.dateFormatter.dateStyle = .short
 		FBFile.dateFormatter.timeStyle = .short
 		return FBFile.dateFormatter.string(from: getModificationDate())
+	}
+	
+	@objc open func getModificationDateStringForSorting() -> String
+	{
+		return String_GetDateStringForSorting(date: getModificationDate())
 	}
 	
 	@objc open func getFileSizeDisplayString() -> String

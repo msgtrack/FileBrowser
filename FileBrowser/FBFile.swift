@@ -65,7 +65,7 @@ public protocol FBFileProto
 			if path.pathExtension != ""
 			{
 				self.fileExtension = path.pathExtension
-				self.type = FBFileType(rawValue: fileExtension!) ?? .Default
+				self.type = FBFileType(rawValue: fileExtension!.lowercased()) ?? .Default
 			}
 			else
 			{

@@ -275,7 +275,7 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		self.dismiss(animated: true, completion: nil)
 	}
 	
-	@objc func nextFile(button: UIBarButtonItem)
+	func nextFile()
 	{
 		if let navFileList = navFileList
 		{
@@ -291,19 +291,14 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		}
 		
 		updateImageNavButtons()
-//
-//		state.dataSource.fileInSameDirectory(after: self.file, sort: { (files:[FBFile]) in self.state.sort(fileList: files)}, callback: { result in
-//			switch result
-//			{
-//			case .error(let error):
-//				print("Error going to next file:\(error.localizedDescription)")
-//			case .success(let newFile):
-//				self.file = newFile
-//			}
-//		})
 	}
 	
-	@objc func prevFile(button: UIBarButtonItem)
+	@objc func nextFile(button: UIBarButtonItem)
+	{
+		nextFile()
+	}
+	
+	func prevFile()
 	{
 		if let navFileList = navFileList
 		{
@@ -317,18 +312,13 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 				}
 			}
 		}
-
+		
 		updateImageNavButtons()
-
-//		state.dataSource.fileInSameDirectory(before: self.file, sort: { (files:[FBFile]) in self.state.sort(fileList: files)}, callback: { result in
-//			switch result
-//			{
-//			case .error(let error):
-//				print("Error going to next file:\(error.localizedDescription)")
-//			case .success(let newFile):
-//				self.file = newFile
-//			}
-//		})
+	}
+	
+	@objc func prevFile(button: UIBarButtonItem)
+	{
+		prevFile()
 	}
 	
 	@objc func qlAction(button: UIBarButtonItem)
@@ -370,6 +360,17 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		let twoFingerTap = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.handleTwoFingerTap(gestureRecognizer:)))
 		twoFingerTap.numberOfTouchesRequired = 2
 		scrollView.addGestureRecognizer(twoFingerTap)
+		
+		
+		let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(ImageViewController.handleLeftSwipe(recognizer:)))
+		leftSwipe.numberOfTouchesRequired = 1;
+		leftSwipe.direction = .left
+		scrollView.addGestureRecognizer(leftSwipe)
+
+		let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(ImageViewController.handleRightSwipe(recognizer:)))
+		rightSwipe.numberOfTouchesRequired = 1;
+		rightSwipe.direction = .right
+		scrollView.addGestureRecognizer(rightSwipe)
 	}
 	
 //	@objc func handleDoubleTap(recognizer: UITapGestureRecognizer) {
@@ -380,8 +381,15 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 //			scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
 //		}
 //	}
-	
-	
+
+	@objc func handleLeftSwipe(recognizer: UIGestureRecognizer) {
+		nextFile()
+	}
+
+	@objc func handleRightSwipe(recognizer: UIGestureRecognizer) {
+		prevFile()
+	}
+
 	@objc func handleDoubleTap(recognizer: UIGestureRecognizer) {
 		// zoom in
 		var newScale = scrollView.zoomScale * ImageViewController.ZOOM_STEP

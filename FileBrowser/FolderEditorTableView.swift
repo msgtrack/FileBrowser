@@ -317,7 +317,7 @@ class FolderEditorTableView : FileListViewController
 			
 			//
 			searchController?.isActive = false
-			fileBrowserState.viewFile(file: selectedFile, controller: self, fileList: files)
+			fileBrowserState.viewFile(file: selectedFile, controller: self, fileList: sortedFileList())
 			//tableView.deselectRow(at: indexPath, animated: true)
 		}
 	}

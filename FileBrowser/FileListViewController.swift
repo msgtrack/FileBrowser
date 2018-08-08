@@ -18,8 +18,8 @@ class FileListViewController: UIViewController {
     var directory: FBFile!
 	var fileBrowserState: FileBrowserState!
 	
-    var files = [FBFile]()
-    var sections: [[FBFile]] = []
+    fileprivate var files = [FBFile]() // Not filtered and not sorted
+    internal var sections: [[FBFile]] = [] // sorted list
 
     // Search controller
     var filteredFiles = [FBFile]()
@@ -181,6 +181,17 @@ class FileListViewController: UIViewController {
 			}
 		}
     }
+	
+	func sortedFileList() -> [FBFile] {
+		if let searchController = self.searchController, searchController.isActive
+		{
+			return filteredFiles;
+		}
+		else
+		{
+			return Array(sections.joined());
+		}
+	}
 	
     func fileForIndexPath(_ indexPath: IndexPath) -> FBFile {
         var file: FBFile

@@ -79,6 +79,14 @@ open class FileBrowser: UINavigationController {
 		
 		// need to create navigation stack starting with the root directory
 		let folderList = directory.folderListFrom(directory: dataSource.rootDirectory)
+		var vcs = [UIViewController]()
+		var lastFolderView : FolderEditorTableView?
+		for folder in folderList
+		{
+			let folderView = FolderEditorTableView(state: state, withDirectory: folder)
+			vcs.append( folderView )
+			lastFolderView = folderView
+		}
 		var userViewController : UIViewController
 		if directory.isDirectory
 		{
@@ -86,12 +94,7 @@ open class FileBrowser: UINavigationController {
 		}
 		else
 		{
-			userViewController = state.viewControllerFor(file: directory, fileList: nil)
-		}
-		var vcs = [UIViewController]()
-		for folder in folderList
-		{
-			vcs.append(FolderEditorTableView(state: state, withDirectory: folder))
+			userViewController = state.viewControllerFor(file: directory, fileList: lastFolderView?.sortedFileList())
 		}
 		vcs.append(userViewController)
 		

@@ -13,6 +13,7 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 	
 	var file: FBFileProto! {didSet {
 		loadImage()
+		NotificationCenter.default.post(name: FileBrowser.FILE_BROWSER_VIEW_NOTIFICATION, object: file)
 		}}
 	var state: FileBrowserState!
 	
@@ -21,7 +22,6 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 	var setZoom : Bool = false
 	
 	static let ZOOM_STEP : CGFloat = 2.0
-	
 	
 	public convenience init (file: FBFile, state: FileBrowserState, fileList: [FBFileProto]?) {
 		self.init(nibName: "WebviewPreviewViewContoller", bundle: Bundle(for: ImageViewController.self))

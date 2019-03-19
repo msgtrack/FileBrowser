@@ -198,18 +198,18 @@ class TextFileViewController : UIViewController
 	//MARK: Keyboard handling
 	
 	func configureKeyboardNotifications() {
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(aNotification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(aNotification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(aNotification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(aNotification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
 	
 	func removeKeyboardNotifications(){
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
 	
 	@objc func keyboardWasShown(aNotification:NSNotification) {
 		let info = aNotification.userInfo
-		let infoNSValue = info![UIKeyboardFrameBeginUserInfoKey] as! NSValue
+		let infoNSValue = info![UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue
 		let kbSize = infoNSValue.cgRectValue.size
 		var contentInsets = textView.contentInset
 		contentInsets.bottom = kbSize.height

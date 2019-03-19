@@ -28,9 +28,9 @@ class FileMoveActivity : UIActivity
 		return nil
 	}
 	
-	override var activityType: UIActivityType
+	override var activityType: UIActivity.ActivityType
 	{
-		return UIActivityType("com.FileBrowser.activity.FileMoveActivity")
+		return UIActivity.ActivityType("com.FileBrowser.activity.FileMoveActivity")
 	}
 	
 	override var activityViewController: UIViewController?
@@ -76,7 +76,7 @@ class FileMoveActivity : UIActivity
 //		activityDidFinish(true)
 //	}
 	
-	override class var activityCategory: UIActivityCategory
+	override class var activityCategory: UIActivity.Category
 	{
 		return .action
 	}

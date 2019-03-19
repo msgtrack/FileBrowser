@@ -328,7 +328,7 @@ class FolderEditorTableView : FileListViewController
 		return true;
 	}
 	
-	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
 	{
 		if editingStyle == .delete
 		{
@@ -343,7 +343,7 @@ class FolderEditorTableView : FileListViewController
 	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
 	{
 		// add info or move actions + delete
-		let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Delete", handler: { (rowAction, indexPath) in
+		let deleteAction = UITableViewRowAction(style: UITableViewRowAction.Style.destructive, title: "Delete", handler: { (rowAction, indexPath) in
 			let selectedFile = self.fileForIndexPath(indexPath)
 			
 			self.deleteFilesWithConfirmation(prompt: "Are you sure you want to delete \(selectedFile.displayName)?", files: [selectedFile], fromButton: nil)

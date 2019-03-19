@@ -21,7 +21,7 @@ public class FileBrowserState : NSObject, NSCopying
 	public var options: FileBrowserOptions?
 	fileprivate var includeIndex: Bool = true
 	var showOnlyFolders: Bool = false
-	var cellAcc: UITableViewCellAccessoryType = .detailButton
+	var cellAcc: UITableViewCell.AccessoryType = .detailButton
 	var allowSearch: Bool = true
 	var cellShowDetail: Bool = false
 	

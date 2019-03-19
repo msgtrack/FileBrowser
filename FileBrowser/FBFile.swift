@@ -28,9 +28,9 @@ public protocol FBFileProto
     /// Display name. String.
     @objc open var displayName: String
     // is Directory. Bool.
-    open let isDirectory: Bool
+    public let isDirectory: Bool
     /// File extension.
-    open let fileExtension: String?
+    public let fileExtension: String?
     /// File attributes (including size, creation date etc).
     //open let fileAttributes: NSDictionary? = nil
     
@@ -40,7 +40,7 @@ public protocol FBFileProto
     open var type: FBFileType
     
     /// Describes the path in the current file system, e.g. /dir/file.txt
-    @objc open let path: URL
+    @objc public let path: URL
     
     /**
      Initialize an FBFile object with a filePath

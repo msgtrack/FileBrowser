@@ -12,8 +12,8 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 	var navFileList: [FBFileProto]?
 	
 	var file: FBFileProto! {didSet {
-		loadImage()
 		NotificationCenter.default.post(name: FileBrowser.FILE_BROWSER_VIEW_NOTIFICATION, object: file)
+		loadImage()
 		}}
 	var state: FileBrowserState!
 	
@@ -36,8 +36,8 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 	
 	func loadImage()
 	{
-		guard file != nil else { return }
-		guard file.file != nil else { return }
+		guard file != nil else { goToAnotherImage(file); return }
+		guard file.file != nil else { goToAnotherImage(file); return }
 		
 		self.title = file.file!.displayName
 		if imageView != nil
@@ -63,6 +63,7 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 				setZoomScale( setInitialScale: true )
 			}
 		} catch {
+			goToAnotherImage(file)
 			print(error)
 		}
 
@@ -256,6 +257,50 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		self.navigationController?.setToolbarHidden(false, animated: false)
 	}
 	
+	func goToAnotherImage( _ file : FBFileProto )
+	{
+		if let navFileList = self.navFileList
+		{
+			if navFileList.count == 1
+			{
+				// this is the last file
+				self.navigationController?.popViewController(animated: true)
+			}
+			else
+			{
+				if let index = indexOfFileIn(list: navFileList, file: file)
+				{
+					if (index + 1) >= navFileList.endIndex
+					{
+						prevFile()
+					}
+					else
+					{
+						nextFile()
+					}
+				}
+				self.removeFileFromList(file)
+				updateImageNavButtons()
+			}
+		}
+		else
+		{
+			// can't go to another file because there is no list
+			self.navigationController?.popViewController(animated: true)
+		}
+	}
+	
+	func removeFileFromList( _ file : FBFileProto )
+	{
+		if let fileList = navFileList
+		{
+			if let index = indexOfFileIn(list: fileList, file: file)
+			{
+				navFileList?.remove(at: index)
+			}
+		}
+	}
+	
 	func indexOfFileIn( list : [FBFileProto], file : FBFileProto ) -> Int?
 	{
 		var index: Int = 0
@@ -275,25 +320,22 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		self.dismiss(animated: true, completion: nil)
 	}
 	
-	func nextFile() -> Bool
+	func nextFile()
 	{
-		var changedFile = false
 		if let navFileList = navFileList
 		{
+			var index = 0
 			if let curIndex = indexOfFileIn( list: navFileList, file: self.file)
 			{
-				let index = curIndex + 1
-				
-				if index < navFileList.endIndex
-				{
-					self.file = navFileList[index]
-					changedFile = true
-				}
+				index = curIndex + 1
+			}
+			if index < navFileList.endIndex
+			{
+				self.file = navFileList[index]
 			}
 		}
 		
 		updateImageNavButtons()
-		return changedFile
 	}
 	
 	@objc func nextFile(button: UIBarButtonItem)
@@ -301,25 +343,25 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		nextFile()
 	}
 	
-	func prevFile() -> Bool
+	func prevFile()
 	{
-		var changedFile = false
 		if let navFileList = navFileList
 		{
+			var index = 0
 			if let curIndex = indexOfFileIn( list: navFileList, file: self.file)
 			{
-				let index = curIndex - 1
-				
-				if index >= 0
+				index = curIndex - 1
+			}
+			if index >= 0
+			{
+				if navFileList.endIndex > index
 				{
 					self.file = navFileList[index]
-					changedFile = true
 				}
 			}
 		}
 		
 		updateImageNavButtons()
-		return changedFile
 	}
 	
 	@objc func prevFile(button: UIBarButtonItem)
@@ -353,13 +395,8 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		
 		state.deleteFileAfterUserConfirmation(files: [file.file!], controller: self, refresh: {
 			// show a different image if available
-			if self.nextFile() == false
-			{
-				if self.prevFile() == false
-				{
-					self.navigationController?.popViewController(animated: true)
-				}
-			}
+			// file list needs to be refreshed
+			self.goToAnotherImage(self.file)
 		})
 	}
 	

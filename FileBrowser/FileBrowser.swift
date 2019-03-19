@@ -94,6 +94,7 @@ open class FileBrowser: UINavigationController {
 		}
 		else
 		{
+			// TODO: sorted file list is not yet ready
 			userViewController = state.viewControllerFor(file: directory, fileList: lastFolderView?.sortedFileList())
 		}
 		vcs.append(userViewController)

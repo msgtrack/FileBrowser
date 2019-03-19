@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0750C3CC1E942CB200CC4F2F /* QuickLookWithActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750C3CB1E942CB200CC4F2F /* QuickLookWithActionsViewController.swift */; };
 		0750C3CF1E94680B00CC4F2F /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750C3CE1E94680B00CC4F2F /* FileDetailViewController.swift */; };
+		0797F7F42241870C000196FC /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0797F7F32241870C000196FC /* CoreServices.framework */; };
 		3437405B1C6E7DA50090FD6A /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3437405A1C6E7DA50090FD6A /* FileListViewController.swift */; };
 		3439AB681C6F203A0058AF04 /* LocalFileBrowserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3439AB671C6F203A0058AF04 /* LocalFileBrowserDataSource.swift */; };
 		3439AB6A1C6FC6D90058AF04 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3439AB691C6FC6D90058AF04 /* QuickLook.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -73,6 +74,7 @@
 /* Begin PBXFileReference section */
 		0750C3CB1E942CB200CC4F2F /* QuickLookWithActionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickLookWithActionsViewController.swift; sourceTree = "<group>"; };
 		0750C3CE1E94680B00CC4F2F /* FileDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
+		0797F7F32241870C000196FC /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		3437405A1C6E7DA50090FD6A /* FileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FileListViewController.swift; sourceTree = "<group>"; };
 		3439AB671C6F203A0058AF04 /* LocalFileBrowserDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFileBrowserDataSource.swift; sourceTree = "<group>"; };
 		3439AB691C6FC6D90058AF04 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
@@ -127,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0797F7F42241870C000196FC /* CoreServices.framework in Frameworks */,
 				343C447F1C73D06200D874FB /* WebKit.framework in Frameworks */,
 				3439AB6A1C6FC6D90058AF04 /* QuickLook.framework in Frameworks */,
 			);
@@ -149,6 +152,14 @@
 				0750C3CE1E94680B00CC4F2F /* FileDetailViewController.swift */,
 			);
 			name = FileDetail;
+			sourceTree = "<group>";
+		};
+		0797F7F22241870C000196FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0797F7F32241870C000196FC /* CoreServices.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		343C445E1C73CB9600D874FB /* Data */ = {
@@ -200,6 +211,7 @@
 				344169561C67812400B93D28 /* FileBrowser */,
 				344169621C67812400B93D28 /* FileBrowserTests */,
 				344169551C67812400B93D28 /* Products */,
+				0797F7F22241870C000196FC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -519,7 +531,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -570,7 +582,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -592,7 +604,7 @@
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = FileBrowser/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roymarmelstein.FileBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -613,7 +625,7 @@
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = FileBrowser/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roymarmelstein.FileBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";

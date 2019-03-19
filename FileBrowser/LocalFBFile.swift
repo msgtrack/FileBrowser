@@ -72,35 +72,33 @@ open class LocalFBFile : FBFile
 	/*
 	Create file at this directory location
 	*/
-	open override func createFile(name: String) -> Bool
+	open override func createFile(name: String, data: Data) -> Bool
 	{
 		guard fileLocation != nil else
 		{
-			print("Could not create directory at nil file location.")
+			print("Could not create file at nil file location.")
 			return false
 		}
 		
 		guard isDirectory else
 		{
-			print("Could not create a directory inside a file.")
+			print("Could not create a file inside a file.")
 			return false
 		}
 		
-		if let dirPath = fileLocation?.appendingPathComponent(name, isDirectory: true)
+		if let dirPath = fileLocation?.appendingPathComponent(name, isDirectory: false)
 		{
-			if FileManager.default.fileExists(atPath: dirPath.absoluteString) == false
+			if FileManager.default.fileExists(atPath: dirPath.path) == false
 			{
-				let data = NSData()
-				
 				//FileManager.default.createFile(atPath: dirPath.absoluteString, contents: nil, attributes: nil)
-				
-				if data.write(to: dirPath, atomically: true) == false
+				do
+				{
+					try data.write(to: dirPath, options: Data.WritingOptions.atomicWrite)
+					return true
+				}
+				catch
 				{
 					AlertUtilities.Alert_Show(title: "Error", message: "Could not create file.")
-				}
-				else
-				{
-					return true
 				}
 			}
 			else
@@ -110,6 +108,43 @@ open class LocalFBFile : FBFile
 		}
 		return false
 	}
+	
+	open override func createFileWithUniqueName(name: String, fileExt: String, data: Data) -> Bool
+	{
+		guard fileLocation != nil else
+		{
+			print("Could not create file at nil file location.")
+			return false
+		}
+		
+		guard isDirectory else
+		{
+			print("Could not create a file inside a file.")
+			return false
+		}
+		
+		var hasNewName = false
+		var testName = "\(name).\(fileExt)"
+		var indexTest = 1
+		repeat
+		{
+			if let dirPath = fileLocation?.appendingPathComponent(testName, isDirectory: false)
+			{
+				if FileManager.default.fileExists(atPath: dirPath.path)
+				{
+					// be careful with file extension
+					testName = name.appendingFormat(" %d.%@", indexTest, fileExt)
+					indexTest += 1
+				}
+				else
+				{
+					hasNewName = true
+					return createFile(name: testName, data: data)
+				}
+			}
+		} while( hasNewName == false )
+	}
+
 	
 	open override func getFileSize() -> Int
 	{

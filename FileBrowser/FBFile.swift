@@ -35,9 +35,9 @@ public protocol FBFileProto
     //open let fileAttributes: NSDictionary? = nil
     
     /// Describes where the resource can be found. May be a file:// or http[s]:// URL
-    open var fileLocation: URL?
+	var fileLocation: URL?
     // FBFileType
-    open var type: FBFileType
+    public var type: FBFileType
     
     /// Describes the path in the current file system, e.g. /dir/file.txt
     @objc public let path: URL
@@ -133,6 +133,17 @@ public protocol FBFileProto
 	}
 	
 	open func createFile(name: String) -> Bool
+	{
+		return createFile(name: name, data: Data())
+	}
+	
+	open func createFileWithUniqueName(name: String, fileExt: String, data: Data) -> Bool
+	{
+		// override for local file browser
+		return false
+	}
+	
+	open func createFile(name: String, data: Data) -> Bool
 	{
 		// override for local file browser
 		return false

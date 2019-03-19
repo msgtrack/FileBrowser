@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import CoreServices
 
 class FolderEditorTableView : FileListViewController
 {
@@ -250,10 +251,60 @@ class FolderEditorTableView : FileListViewController
 			})
 			
 		})
-		
 		alertController.addAction(cancelAction)
 		alertController.addAction(fileAction)
 		alertController.addAction(folderAction)
+		
+        if UIPasteboard.general.hasImages
+        {
+			let pasteImageAction = UIAlertAction(title: "Paste Image", style: .default, handler: {(alert: UIAlertAction!) in
+				// Create new file
+				
+				var pastedImages = 0;
+				if let imageTypes = UIPasteboard.typeListImage as? [String]
+				{
+					let itemsSet = UIPasteboard.general.itemSet(withPasteboardTypes: imageTypes)
+					for type in imageTypes
+					{
+						if let datas = UIPasteboard.general.data(forPasteboardType: type, inItemSet: itemsSet)
+						{
+							for data in datas
+							{
+								if let tag = UTTypeCopyPreferredTagWithClass( type as CFString, kUTTagClassFilenameExtension )?.takeUnretainedValue()
+								{
+									if self.directory.createFileWithUniqueName(name: "Picture", fileExt: tag as String, data: data)
+									{
+										pastedImages += 1
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				
+				if pastedImages == 0
+				{
+					if let images = UIPasteboard.general.images
+					{
+						for image in images
+						{
+							// run in debug mode and see if there are other data on the pasteboard to directly write to the file(s)
+							if let data = image.jpegData(compressionQuality: 0.7)
+							{
+								if self.directory.createFileWithUniqueName(name: "Picture", fileExt: "jpg", data: data)
+								{
+									pastedImages += 1
+								}
+							}
+						}
+					}
+				}
+				self.prepareData(sender:nil)
+			})
+			alertController.addAction(pasteImageAction)
+        }
+		
 		
 		// Configure the alert controller's popover presentation controller if it has one.
 		if let popoverPresentationController = alertController.popoverPresentationController

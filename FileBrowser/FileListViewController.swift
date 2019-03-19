@@ -183,6 +183,7 @@ class FileListViewController: UIViewController {
     }
 	
 	func sortedFileList() -> [FBFile] {
+		// TODO: determine when not yet ready
 		if let searchController = self.searchController, searchController.isActive
 		{
 			return filteredFiles;

@@ -102,7 +102,7 @@ extension FileListViewController: UITableViewDataSource, UITableViewDelegate {
 			let leftDetailText = selectedFile.textForAttribute(leftDetailAttribute)
 			let rightDetailText = selectedFile.textForAttribute(rightDetailAttribute)
 			
-			if leftDetailText.characters.count > 0 || rightDetailText.characters.count > 0
+			if leftDetailText.count > 0 || rightDetailText.count > 0
 			{
 				let attString = NSMutableAttributedString.init(string: "\(leftDetailText)\t\(rightDetailText)")
 				
@@ -112,7 +112,7 @@ extension FileListViewController: UITableViewDataSource, UITableViewDelegate {
 				style.tabStops = [NSTextTab.init(textAlignment: .right, location: rightLocation, options: [:])]
 				
 				attString.beginEditing()
-				attString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSMakeRange(0, leftDetailText.characters.count + rightDetailText.characters.count))
+				attString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSMakeRange(0, leftDetailText.count + rightDetailText.count))
 				attString.endEditing()
 				
 				cell.detailTextLabel?.font = cell.detailTextLabel?.font.withSize(CGFloat(fileBrowserState.options?.List_FileDetailFontSize ?? 10))

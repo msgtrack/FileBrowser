@@ -317,29 +317,7 @@ class FolderEditorTableView : FileListViewController
 	
 	func deleteFilesWithConfirmation( prompt : String, files: [FBFile], fromButton: UIBarButtonItem? )
 	{
-		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-		let deleteAction = UIAlertAction(title: prompt, style: .destructive, handler: {(alert: UIAlertAction!) in
-			// Perform delete
-			
-			for file in files
-			{
-				file.delete()
-			}
-			
-			self.prepareData(sender: nil)
-			
-		})
-		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil )
-		
-		alertController.addAction(cancelAction)
-		alertController.addAction(deleteAction)
-		
-		// Configure the alert controller's popover presentation controller if it has one.
-		if let button = fromButton, let popoverPresentationController = alertController.popoverPresentationController
-		{
-			popoverPresentationController.barButtonItem = button
-		}
-		self.present(alertController, animated: true, completion: nil)
+		fileBrowserState.deleteFilesWithConfirmation(prompt: prompt, files: files, fromButton: fromButton, controller: self, refresh: {self.prepareData(sender: nil)})
 	}
 	
 	@objc func selectActionTrash(button: UIBarButtonItem = UIBarButtonItem()) {

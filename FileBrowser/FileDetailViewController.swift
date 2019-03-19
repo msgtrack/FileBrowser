@@ -271,7 +271,7 @@ class FileDetailViewController: UIViewController, UITableViewDataSource, UITable
 				fileBrowserState.moveFiles(files: [file], controller: self, sender: nil)
 				break;
 			case FileDetailViewController.DELETE_ACTION:
-				fileBrowserState.deleteFileAfterUserConfirmation( files: [file], controller: self, refresh: {
+				fileBrowserState.deleteFilesWithConfirmation(prompt: "Delete", files: [file], fromButton: nil, controller: self, refresh: {
 					// need to refresh the previous view controller (the view controller is now refreshing every time view will appear)
 					
 					if self.fromImageViewer

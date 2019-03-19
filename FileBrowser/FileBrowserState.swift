@@ -178,7 +178,7 @@ public class FileBrowserState : NSObject, NSCopying
 				{
 					var newName : String = name
 					
-					if ext.characters.count > 0
+					if ext.count > 0
 					{
 						newName += "." + ext
 					}
@@ -203,12 +203,12 @@ public class FileBrowserState : NSObject, NSCopying
 		controller.present(alertController, animated: true, completion: nil)
 	}
 	
-	func deleteFileAfterUserConfirmation( files: [FBFile], controller: UIViewController, refresh: @escaping ()->() )
+	func deleteFilesWithConfirmation( prompt : String, files: [FBFile], fromButton: UIBarButtonItem?, controller: UIViewController, refresh: @escaping ()->() )
 	{
-		// Need confirm delete
-		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-		let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: {(alert: UIAlertAction!) in
+		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		let deleteAction = UIAlertAction(title: prompt, style: .destructive, handler: {(alert: UIAlertAction!) in
 			// Perform delete
+			
 			for file in files
 			{
 				file.delete()
@@ -221,6 +221,11 @@ public class FileBrowserState : NSObject, NSCopying
 		alertController.addAction(cancelAction)
 		alertController.addAction(deleteAction)
 		
+		// Configure the alert controller's popover presentation controller if it has one.
+		if let button = fromButton, let popoverPresentationController = alertController.popoverPresentationController
+		{
+			popoverPresentationController.barButtonItem = button
+		}
 		controller.present(alertController, animated: true, completion: nil)
 	}
 	

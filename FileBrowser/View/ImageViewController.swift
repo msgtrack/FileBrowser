@@ -393,7 +393,7 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 			return
 		}
 		
-		state.deleteFileAfterUserConfirmation(files: [file.file!], controller: self, refresh: {
+		state.deleteFilesWithConfirmation(prompt: "Delete", files: [file.file!], fromButton: button, controller: self, refresh: {
 			// show a different image if available
 			// file list needs to be refreshed
 			self.goToAnotherImage(self.file)

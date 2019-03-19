@@ -275,8 +275,9 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		self.dismiss(animated: true, completion: nil)
 	}
 	
-	func nextFile()
+	func nextFile() -> Bool
 	{
+		var changedFile = false
 		if let navFileList = navFileList
 		{
 			if let curIndex = indexOfFileIn( list: navFileList, file: self.file)
@@ -286,11 +287,13 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 				if index < navFileList.endIndex
 				{
 					self.file = navFileList[index]
+					changedFile = true
 				}
 			}
 		}
 		
 		updateImageNavButtons()
+		return changedFile
 	}
 	
 	@objc func nextFile(button: UIBarButtonItem)
@@ -298,8 +301,9 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		nextFile()
 	}
 	
-	func prevFile()
+	func prevFile() -> Bool
 	{
+		var changedFile = false
 		if let navFileList = navFileList
 		{
 			if let curIndex = indexOfFileIn( list: navFileList, file: self.file)
@@ -309,11 +313,13 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 				if index >= 0
 				{
 					self.file = navFileList[index]
+					changedFile = true
 				}
 			}
 		}
 		
 		updateImageNavButtons()
+		return changedFile
 	}
 	
 	@objc func prevFile(button: UIBarButtonItem)
@@ -346,7 +352,14 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		}
 		
 		state.deleteFileAfterUserConfirmation(files: [file.file!], controller: self, refresh: {
-			self.navigationController?.popViewController(animated: true)
+			// show a different image if available
+			if self.nextFile() == false
+			{
+				if self.prevFile() == false
+				{
+					self.navigationController?.popViewController(animated: true)
+				}
+			}
 		})
 	}
 	

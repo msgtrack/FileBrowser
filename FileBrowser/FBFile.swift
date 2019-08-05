@@ -81,7 +81,12 @@ public protocol FBFileProto
 	{
 		return lhs.path == rhs.path
 	}
-	
+
+	static func ==(lhs: FBFile, rhs: FBFile?) -> Bool
+	{
+		return lhs.path == rhs?.path
+	}
+
 	static func !=(lhs: FBFile, rhs: FBFile) -> Bool
 	{
 		return lhs.path != rhs.path

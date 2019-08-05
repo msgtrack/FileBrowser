@@ -306,9 +306,12 @@ public class ImageViewController: UIViewController, UIScrollViewDelegate {
 		var index: Int = 0
 		for theFile in list
 		{
-			if theFile.file === file.file
+			if let testFile = theFile.file
 			{
-				return index
+				if testFile == file.file
+				{
+					return index
+				}
 			}
 			index += 1
 		}

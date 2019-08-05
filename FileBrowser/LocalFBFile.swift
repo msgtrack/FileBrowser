@@ -16,7 +16,7 @@ open class LocalFBFile : FBFile
 		return LocalFBFile( path: baseURL )
 	}
 
-	static func ==(lhs: LocalFBFile, rhs: LocalFBFile) -> Bool
+	static func ==(lhs: LocalFBFile, rhs: FBFile) -> Bool
 	{
 		return lhs.path == rhs.path
 	}

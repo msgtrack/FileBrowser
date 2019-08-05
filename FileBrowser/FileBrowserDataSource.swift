@@ -11,7 +11,8 @@ import Foundation
 public protocol FileBrowserDataSource {
     var rootDirectory: FBFile { get }
     func provideContents(ofDirectory directory: FBFile, callback: @escaping (Result<[FBFile]>) -> ())
-    
+	func getContents(ofDirectory directory: FBFile) throws -> [FBFile]
+	
     func attributes(ofItemWithUrl fileUrl: URL) -> NSDictionary?
     func data(forFile file: FBFile) throws -> Data
     func dataURL(forFile file: FBFile) throws -> URL

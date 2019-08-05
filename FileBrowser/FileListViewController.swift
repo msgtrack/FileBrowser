@@ -18,8 +18,8 @@ class FileListViewController: UIViewController {
     var directory: FBFile!
 	var fileBrowserState: FileBrowserState!
 	
-    fileprivate var files = [FBFile]() // Not filtered and not sorted
-    internal var sections: [[FBFile]] = [] // sorted list
+    lazy fileprivate var files = self.loadFiles() // Not filtered and not sorted
+	lazy internal var sections: [[FBFile]] = self.indexFiles() // sorted list
 
     // Search controller
     var filteredFiles = [FBFile]()
@@ -145,7 +145,7 @@ class FileListViewController: UIViewController {
 			switch result {
 			case .success(let files):
 				self.files = files
-				self.indexFiles()
+				self.sections = self.indexFiles()
 				//TODO: Check before reloading data as it removes the selection (save the selection?)
 				self.tableView.reloadData()
 			case .error(let error):
@@ -161,29 +161,43 @@ class FileListViewController: UIViewController {
 
 	}
 	
-    func indexFiles() {
+	func loadFiles() -> [FBFile]
+	{
+		do
+		{
+			return try fileBrowserState.dataSource.getContents(ofDirectory: self.directory)
+		}
+		catch let error
+		{
+			print( error )
+			return []
+		}
+	}
+	
+    func indexFiles() -> [[FBFile]] {
+		var sectionsBuilding : [[FBFile]]
 		if fileBrowserState.shouldIncludeIndex()
 		{
 			let selector = fileBrowserState.sortingSelector()
-			sections = Array(repeating: [], count: fileBrowserState.collation.sectionTitles.count)
+			sectionsBuilding = Array(repeating: [], count: fileBrowserState.collation.sectionTitles.count)
 			let sortedObjects = fileBrowserState.sort(fileList: files)
 			for object in sortedObjects {
 				let sectionNumber = fileBrowserState.collation.section(for: object, collationStringSelector: selector)
-				sections[sectionNumber].append(object)
+				sectionsBuilding[sectionNumber].append(object)
 			}
 		}
 		else
 		{
-			sections = Array(repeating: [], count: 1)
+			sectionsBuilding = Array(repeating: [], count: 1)
 			let sortedObjects = fileBrowserState.sort(fileList: files)
 			for object in sortedObjects {
-				sections[0].append(object)
+				sectionsBuilding[0].append(object)
 			}
 		}
+		return sectionsBuilding
     }
 	
 	func sortedFileList() -> [FBFile] {
-		// TODO: determine when not yet ready
 		if let searchController = self.searchController, searchController.isActive
 		{
 			return filteredFiles;

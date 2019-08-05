@@ -27,26 +27,35 @@ public class LocalFileBrowserDataSource: FileBrowserDataSource {
     public var rootDirectory: FBFile {
         return LocalFBFile(path: rootUrl)
     }
+	
+	public func getContents(ofDirectory directory: FBFile) throws -> [FBFile]  {
+		
+		// Get contents
+		let filePaths = try self.fileManager.contentsOfDirectory(at: directory.path, includingPropertiesForKeys: [], options: [.skipsHiddenFiles])
+		
+		// Filter
+		var files = filePaths.map(LocalFBFile.init)
+		if let excludesFileExtensions = excludesFileExtensions {
+			let lowercased = excludesFileExtensions.map { $0.lowercased() }
+			files = files.filter { !lowercased.contains($0.fileExtension?.lowercased() ?? "") }
+		}
+		if let excludesFilepaths = excludesFilepaths {
+			files = files.filter { !excludesFilepaths.contains($0.path) }
+		}
+		
+		// Sort
+		files = files.sorted(){$0.displayName < $1.displayName}
+		
+		return files;
+		
+	}
     
     public func provideContents(ofDirectory directory: FBFile, callback: @escaping (Result<[FBFile]>) -> ()) {
         
         // Get contents
         do {
-            let filePaths = try self.fileManager.contentsOfDirectory(at: directory.path, includingPropertiesForKeys: [], options: [.skipsHiddenFiles])
-            
-            
-            // Filter
-            var files = filePaths.map(LocalFBFile.init)
-            if let excludesFileExtensions = excludesFileExtensions {
-                let lowercased = excludesFileExtensions.map { $0.lowercased() }
-                files = files.filter { !lowercased.contains($0.fileExtension?.lowercased() ?? "") }
-            }
-            if let excludesFilepaths = excludesFilepaths {
-                files = files.filter { !excludesFilepaths.contains($0.path) }
-            }
-            
-            // Sort
-            files = files.sorted(){$0.displayName < $1.displayName}
+            let files = try self.getContents(ofDirectory: directory)
+			
             callback(.success(files))
         } catch let error {
             callback(.error(error))

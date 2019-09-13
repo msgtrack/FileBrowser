@@ -17,28 +17,34 @@ class SelectFolderViewController : FileListViewController
 	static private func controllerForDirectory(files: [FBFile], state: FileBrowserState, directory: FBFile, prompt: String, action: (()->())? = nil, cancelAction: (()->())? = nil) -> UIViewController
 	{
 		let vc = SelectFolderViewController(state: state, enclosingDirectory: directory, prompt:prompt, action: {(directory:FBFile, vc:UIViewController) in
-			for file in files
-			{
-				file.moveTo(directory: directory)
-			}
+
+
+			vc.dismiss(animated: true, completion: {
+				
+				// TODO: do this in a new thread
+				for file in files
+				{
+					file.moveTo(directory: directory)
+				}
+				
+				if let action = action
+				{
+					action()
+				}
+			})
+
 			
-			if let action = action
-			{
-				action()
-			}
-			else
-			{
-				vc.dismiss(animated: true, completion: nil)
-			}
 		}, cancelAction: {(vc: UIViewController) in
-			if let action = cancelAction
-			{
-				action()
-			}
-			else
-			{
-				vc.dismiss(animated: true, completion: nil)
-			}
+			vc.dismiss(animated: true, completion: {
+				
+				if let action = cancelAction
+				{
+					action()
+				}
+				
+			})
+			
+			
 		})
 		
 		return vc;
@@ -71,7 +77,7 @@ class SelectFolderViewController : FileListViewController
 		
 		// add in nav controller
 		
-		let rootVC = controllerForDirectory(files: files, state: stateForSelect, directory: state.dataSource.rootDirectory, prompt: prompt)
+		let rootVC = controllerForDirectory(files: files, state: stateForSelect, directory: state.dataSource.rootDirectory, prompt: prompt, action: action, cancelAction: cancelAction)
 		
 		let nc = UINavigationController(rootViewController: rootVC)
 		
@@ -85,7 +91,7 @@ class SelectFolderViewController : FileListViewController
 		{
 			print("Building view controller list:\(curDir.path)")
 			
-			vcStack.append(controllerForDirectory(files: files, state: stateForSelect, directory: curDir, prompt: prompt))
+			vcStack.append(controllerForDirectory(files: files, state: stateForSelect, directory: curDir, prompt: prompt, action: action, cancelAction: cancelAction))
 		}
 		
 		nc.setViewControllers(vcStack, animated: false)

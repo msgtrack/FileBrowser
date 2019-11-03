@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07148990232C176900084C84 /* FileFilterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714898F232C176900084C84 /* FileFilterSettings.swift */; };
 		0750C3CC1E942CB200CC4F2F /* QuickLookWithActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750C3CB1E942CB200CC4F2F /* QuickLookWithActionsViewController.swift */; };
 		0750C3CF1E94680B00CC4F2F /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750C3CE1E94680B00CC4F2F /* FileDetailViewController.swift */; };
 		0797F7F42241870C000196FC /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0797F7F32241870C000196FC /* CoreServices.framework */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0714898F232C176900084C84 /* FileFilterSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileFilterSettings.swift; sourceTree = "<group>"; };
 		0750C3CB1E942CB200CC4F2F /* QuickLookWithActionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickLookWithActionsViewController.swift; sourceTree = "<group>"; };
 		0750C3CE1E94680B00CC4F2F /* FileDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
 		0797F7F32241870C000196FC /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -173,6 +175,7 @@
 				52E32F9B1EA1A26A0077FD93 /* LocalFBFile.swift */,
 				5250BA171EBBEE9E00385B9D /* FileBrowserOptions.swift */,
 				520BF61C1ECB65280064F22C /* FBFileAttributes.swift */,
+				0714898F232C176900084C84 /* FileFilterSettings.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				523EA2551EAAB520006B3D86 /* SelectFolderViewController.swift in Sources */,
 				52E32F9C1EA1A26A0077FD93 /* LocalFBFile.swift in Sources */,
 				349A12281C707B1A005435C0 /* FBFile.swift in Sources */,
+				07148990232C176900084C84 /* FileFilterSettings.swift in Sources */,
 				343C44631C73CC8100D874FB /* PreviewTransitionViewController.swift in Sources */,
 				C3BF0DFC1E13F4A80009D12C /* FileBrowserDataSource.swift in Sources */,
 				3437405B1C6E7DA50090FD6A /* FileListViewController.swift in Sources */,

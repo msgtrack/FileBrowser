@@ -109,7 +109,7 @@ class TextFileViewController : UIViewController
 		
 		do
 		{
-			textView.text = try NSString(contentsOfFile: file.path.path, usedEncoding: nil) as String!
+			textView.text = try NSString(contentsOfFile: file.path.path, usedEncoding: nil) as String?
 			textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument);
 			//textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
 			textView.isEditable = false

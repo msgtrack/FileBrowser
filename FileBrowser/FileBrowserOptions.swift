@@ -6,7 +6,7 @@
 
 import Foundation
 
-@objc open class FileBrowserOptions : NSObject, NSCoding
+@objc public class FileBrowserOptions : NSObject, NSCoding
 {
 	// Text File Viewing and Editing
 	@objc public var TextFile_textColorDay: UIColor?
